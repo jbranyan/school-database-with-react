@@ -16,7 +16,7 @@ import {
   Routes } from 'react-router-dom';
 
 import Courses from './components/Courses';
-// import CourseDetail from './components/CourseDetail';
+import CourseDetail from './components/CourseDetail';
 // import CreateCourse from './components/CreateCourse';
 // import Header from './components/Header';
 // import UpdateCourse from './components/UpdateCourse';
@@ -30,6 +30,7 @@ function App() {
     <div>
       <Routes>
         <Route exact path="/" element=<Courses/> />
+        <Route exact path="/courses/:id" element={<CourseDetail/>} />
       </Routes>
     </div>
     </Router>

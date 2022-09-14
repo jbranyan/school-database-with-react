@@ -7,12 +7,12 @@ import {
     NavLink} from 'react-router-dom';
 
 function Courses(){
-    let [courses, setCourseDetail] = useState([]);
+    let [courses, setCourse] = useState([]);
 
       useEffect(() => {
         fetch("http://localhost:5000/api/courses")
         .then(response => response.json())
-        .then(responseData => setCourseDetail(responseData))
+        .then(responseData => setCourse(responseData))
         console.log(courses);
     }, []);
 
