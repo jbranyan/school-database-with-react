@@ -13,7 +13,6 @@ function Courses(){
         fetch("http://localhost:5000/api/courses")
         .then(response => response.json())
         .then(responseData => setCourse(responseData))
-        console.log(courses);
     }, []);
 
 
