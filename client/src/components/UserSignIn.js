@@ -34,10 +34,9 @@ function UserSignIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.post(LOGIN_URL, JSON.stringify({emailAddress: username, password}),
+            const response = await axios.post(LOGIN_URL, JSON.stringify({username: username, password: password}),
                 {
-                    header: {'Content-Type' : 'application/json'},
-                    withCredentials: true
+                    header: {'Content-Type' : 'application/json'}
                 }
             );
             // console.log(JSON.stringify(response?.data));
