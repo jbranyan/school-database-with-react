@@ -4,17 +4,17 @@ to the REST API's /api/courses/:id route in order to delete a course. This compo
 
 import React, {useState, useEffect} from 'react';
 import {useParams, NavLink} from 'react-router-dom';
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 
 function CourseDetail(){
-    // const [course, setCourseDetail] = useState('');
+    const [course, setCourseDetail] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [userId, setUserId] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [deleteCourseId, setDeleteCourse] = useState('');
+
     let { id } = useParams();
 
 
@@ -27,24 +27,37 @@ function CourseDetail(){
                 description,
                 estimatedTime,
                 materialsNeeded,
-                userId,
-                firstName,
-                lastName
+                userId
             } = courseData;
 
-            // setCourseDetail(newData);
+            setCourseDetail(courseData);
             setTitle(title);
             setDescription(description);
             setEstimatedTime(estimatedTime);
             setMaterialsNeeded(materialsNeeded);
             setUserId(userId);
-            setFirstName(firstName);
-            setLastName(lastName);
         };
             fetchData();
         }, []);
 
-        // console.log(course);
+        //TODO: Needs to be updated for authorized user and tested. 
+        const deleteCourse = async () => {
+            if(id){
+                try{
+                const response = await fetch(`http://localhost:5000/api/courses/${id}`, {method: "delete"});
+                const courseData = await response.json();
+                console.log('delete function');
+
+                const result = {
+                    course
+                };
+                setDeleteCourse(result);
+
+                } catch (err) {
+                    setDeleteCourse(err.message);
+                }
+            }
+        }
 
     return(
         <React.Fragment>
@@ -59,12 +72,11 @@ function CourseDetail(){
             </div>
             <div className="actions--bar">
                 <div className="wrap">
-                    <NavLink exact to='/courses/create' className='button'>Update Course</NavLink>
-                    <a className="button" href="#">Delete Course</a>
+                    <NavLink exact to='/courses/:id/update' className='button'>Update Course</NavLink>
+                    <button className="button" to='/' onClick={deleteCourse}>Delete Course</button>
                     <NavLink exact to='/' className="button button-secondary">Return to List</NavLink>
                 </div>
             </div>
-
         <div className="wrap">
             <h2>Course Detail</h2>
             <form>
@@ -72,7 +84,7 @@ function CourseDetail(){
                     <div>
                         <h3 className="course--detail--title">Course</h3>
                         <h4 className="course--name">{title}</h4>
-                        <p>By </p>
+                        {course.User ? <p>By {course.User.firstName} {course.User.lastName}</p> : <p></p>}
 
                         <ReactMarkdown children={description}/>
                     </div>
