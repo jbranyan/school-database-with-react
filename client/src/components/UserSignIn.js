@@ -34,15 +34,12 @@ function UserSignIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.post(LOGIN_URL, JSON.stringify({username: username, password: password}),
+            const response = await axios.get(LOGIN_URL, JSON.stringify({username: username, password: password}),
                 {
                     header: {'Content-Type' : 'application/json'}
                 }
             );
-            // console.log(JSON.stringify(response?.data));
             setAuth({username, password});
-            setUsername('');
-            setPassword('');
             setSuccess(true);
         } catch (error){
             console.log(error);
