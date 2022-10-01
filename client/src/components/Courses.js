@@ -5,17 +5,17 @@ REST API's /api/courses route and rendering a list of courses. Each course needs
 respective "Course Detail" screen. This component also renders a link to the "Create Course" screen. */
 
 import React, {useState, useEffect} from 'react';
-import {
-    NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
-function Courses(){
-    let [courses, setCourse] = useState([]);
+function Courses({context}){
+    let [courses, setCourses] = useState([]);
 
-      useEffect(() => {
-        fetch("http://localhost:5000/api/courses")
-        .then(response => response.json())
-        .then(responseData => setCourse(responseData))
-    }, []);
+    useEffect(() => {
+        context.data.getCourses()
+        .then(data => setCourses(data))
+        .catch(err => console.log(err));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
 
 
     return(
