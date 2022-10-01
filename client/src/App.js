@@ -1,41 +1,47 @@
-
-import React, {useState} from 'react';
-import './styles/reset.css';
-import './styles/global.css';
-import './App.css';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Routes } from 'react-router-dom';
+  Switch
+} from 'react-router-dom';
 
+import Header from './components/Header';
 import Courses from './components/Courses';
-import CourseDetail from './components/CourseDetail';
-//import UpdateCourse from './components/UpdateCourse';
 import CreateCourse from './components/CreateCourse';
-// import UpdateCourse from './components/UpdateCourse';
-// import Header from './components/Header';
+import UpdateCourse from './components/UpdateCourse';
+import CourseDetail from './components/CourseDetail';
 import UserSignIn from './components/UserSignIn';
-// import UserSignOut from './components/UserSignOut';
-// import UserSignUp from './components/UserSignUp';
+import UserSignUp from './components/UserSignUp';
+import UserSignOut from './components/UserSignOut';
+
+import withContext from './Context';
+import PrivateRoute from './components/PrivateRoute';
+
+const HeaderWithContext = withContext(Header);
+const CoursesWithContext = withContext(Courses);
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse); 
+const CourseDetailWithContext = withContext(CourseDetail);
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignOutWithContext = withContext(UserSignOut);
 
 
-function App() {
-
-  return (
-    <Router>
-    <div>
-      <Routes>
-        <Route exact path="/" element=<Courses/> />
-        <Route exact path="/courses/:id" element=<CourseDetail/> />
-        {/* <Route exact path="/courses/update/:id" element=<UpdateCourse/> /> */}
-        <Route exact path="/courses/create" element=<CreateCourse/> />
-        <Route exact path="/UserSignIn" element=<UserSignIn/> />
-        {/* <Route exact path="/UserSignUp" element=<UserSignUp/> />
-        <Route exact path="/UserSignOut" element=<UserSignOut/> /> */}
-      </Routes>
-    </div>
-    </Router>
-  );
-}
+const App = () => (
+  <Router>
+    <>
+      <HeaderWithContext />
+      <Switch>
+        <Route exact path="/" component={CoursesWithContext} />
+        <PrivateRoute exact path="/courses/create" component={CreateCourseWithContext} />
+        <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <Route path="/courses/:id" component={CourseDetailWithContext} />
+        <Route path="/signin" component={UserSignInWithContext} />
+        <Route path="/signup" component={UserSignUpWithContext} />
+        <Route path="/signout" component={UserSignOutWithContext} />
+      </Switch>
+    </>
+  </Router>
+);
 
 export default App;
