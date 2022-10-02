@@ -1,17 +1,14 @@
 import React, {useState} from 'react';
-import ReactMarkdown from 'react-markdown';
 import { useHistory } from "react-router-dom";
-
-//TODO: Update User Name
 
 
 function CreateCourse({context}){
-    const [courseTitle, setCourseTitle] = useState('');
-    const [courseDescription, setCourseDescription] = useState('');
+    const [title, setCourseTitle] = useState('');
+    const [description, setCourseDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [errorMessage, setErrorMessages] = useState([]);
-    const userId = context.authenticatedUser.userId;
+    const userId = context.authenticatedUser.id;
     const history = useHistory();
 
     function cancelCourseCreation(e) {
@@ -22,17 +19,17 @@ function CreateCourse({context}){
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const username = context.authenticatedUser.emailAddress;
+        const password = context.authenticatedUser.password;
+
         const course = {
-            courseTitle,
-            courseDescription,
+            title,
+            description,
             estimatedTime,
             materialsNeeded,
             userId
         }
 
-        console.log('course ' + JSON.stringify(context.authenticatedUser));
-        const username = context.authenticatedUser.emailAddress;
-        const password = context.authenticatedUser.password;
 
         context.data.createCourse(course, username, password)
         .then(errors => {
@@ -69,10 +66,10 @@ return(
                     <div>
                         <label htmlFor="courseTitle">Course Title</label>
                         <input
-                            id="courseTitle"
-                            name="courseTitle"
+                            id="title"
+                            name="title"
                             type="text"
-                            value={courseTitle}
+                            value={title}
                             onChange={(e) => setCourseTitle(e.target.value)}
                         />
 
@@ -82,9 +79,9 @@ return(
 
                         <label htmlFor="courseDescription">Course Description</label>
                         <textarea
-                            id="courseDescription"
-                            name="courseDescription"
-                            value={courseDescription}
+                            id="description"
+                            name="description"
+                            value={description}
                             onChange={(e) => setCourseDescription(e.target.value)}
                         />
                     </div>

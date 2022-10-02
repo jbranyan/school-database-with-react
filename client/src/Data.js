@@ -14,8 +14,8 @@ export default class Data {
     if (body !== null) {
       options.body = JSON.stringify(body);
     }
-
-    if (requiresAuth) {    
+    console.log('url ' + url);
+    if (requiresAuth) {
       const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
@@ -84,11 +84,8 @@ export default class Data {
   }
 
   async createCourse(course, username, password) {
-    console.log(JSON.stringify(course));
-    console.log(username);
-    console.log(password);
     const response = await this.api('/courses', 'POST', course, true, { username, password });
-    console.log(response);
+
     if (response.status === 201) {
       return [];
     }
