@@ -1,39 +1,56 @@
-import React, {useState, useRef, useEffect, useContext} from 'react';
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useHistory, Link } from "react-router-dom";
 
 
-function UserSignUp() {
+function UserSignUp({ context }) {
 
 const [firstName, setFirstName] = useState('');
 const [lastName, setLastName] = useState('');
 const [emailAddress, setEmailAddress] = useState('');
 const [password, setPassword] = useState('');
-const navigate = useHistory();
+const [errorMessage, setErrorMessages] = useState([]);
+const history = useHistory();
 
 
 const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const user = {
+        firstName,
+        lastName,
+        emailAddress,
+        password
+    }
+
+    context.data.createUser(user)
+        .then(errors => {
+            if(errors.length){
+                setErrorMessages(errors);
+                } else {
+                    context.actions.signIn(
+                        user.emailAddress,
+                        user.password
+                    )
+                    .then(() => {
+                        history.push('/');
+                    });
+            }
+        })
+        .catch( error => {
+                console.log(error);
+                history.push('/error');
+        })
+
 
 }
 
-
 const cancelLogin = (event)  => {
     event.preventDefault();
-    navigate('/');
+    history.push('/');
 }
 
   return (
     <React.Fragment>
-        <div className="wrap header--flex">
-            <h1 className="header--logo"><a href="index.html">Courses</a></h1>
-            <nav>
-                <ul className="header--signedout">
-                    <li><a href="sign-up.html">Sign Up</a></li>
-                    <li><a href="sign-in.html">Sign In</a></li>
-                </ul>
-            </nav>
-        </div>
         <div className="form--centered">
             <h2>Sign Up</h2>
             
@@ -44,7 +61,7 @@ const cancelLogin = (event)  => {
                     name="firstName" 
                     type="text" 
                     onChange={(e) => setFirstName(e.target.value)}
-                    value=""
+                    value={firstName}
                 />
                 <label htmlFor="lastName">Last Name</label>
                 <input 
@@ -52,7 +69,7 @@ const cancelLogin = (event)  => {
                     name="lastName" 
                     type="text" 
                     onChange={(e) => setLastName(e.target.value)}
-                    value=""
+                    value={lastName}
                 />
                 <label htmlFor="emailAddress">Email Address</label>
                 <input 
@@ -60,7 +77,7 @@ const cancelLogin = (event)  => {
                     name="emailAddress" 
                     type="email" 
                     onChange={(e) => setEmailAddress(e.target.value)}
-                    value=""
+                    value={emailAddress}
                 />
                 <label htmlFor="password">Password</label>
                 <input 
@@ -73,7 +90,7 @@ const cancelLogin = (event)  => {
                 />
                 <button className="button" type="submit">Sign Up</button><button className="button button-secondary" onClick={cancelLogin}>Cancel</button>
             </form>
-            <p>Already have a user account? Click here to <a href="sign-in.html">sign in</a>!</p>
+            <p>Already have a user account? Click here to <Link to="/signin">sign in</Link>!</p>
         </div>
     </React.Fragment>
 

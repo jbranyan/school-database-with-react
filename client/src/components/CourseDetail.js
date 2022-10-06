@@ -24,7 +24,7 @@ function CourseDetail({context}){
 
       useEffect(() => {
         context.data.getCourse(id)
-        .then(data => 
+        .then(data =>
             setCourseDetail({
                 course: data,
                 title: data.title,
@@ -40,12 +40,16 @@ function CourseDetail({context}){
 
         const deleteCourse = async (e) => {
             e.preventDefault();
-            const username = context.authenticatedUser.username;
+            const username = context.authenticatedUser.emailAddress;
             const password = context.authenticatedUser.password;
 
             context.data.deleteCourse(id, username, password)
                 .then(error => {
-                    if(!error.length){
+                    console.log('error ' + error);
+                    console.log('error length ' + error.length);
+                    if(error.length){
+                        console.log(error);
+                    } else {
                         history.push('/');
                     }
                 })
@@ -58,8 +62,8 @@ function CourseDetail({context}){
         <React.Fragment>
             <div className="actions--bar">
                 <div className="wrap">
-                    <NavLink exact to='/courses/:id/update' className='button'>Update Course</NavLink>
-                    <button className="button" to='/' onClick={deleteCourse}>Delete Course</button>
+                    <NavLink exact to={`/courses/${course.course.id}/update`} className='button'>Update Course</NavLink>
+                    <NavLink exact to={`/courses/${course.course.id}/delete`} className='button' onClick={deleteCourse}>Delete Course</NavLink>
                     <NavLink exact to='/' className="button button-secondary">Return to List</NavLink>
                 </div>
             </div>

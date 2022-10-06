@@ -14,7 +14,7 @@ export default class Data {
     if (body !== null) {
       options.body = JSON.stringify(body);
     }
-    console.log('url ' + url);
+
     if (requiresAuth) {
       const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
@@ -70,8 +70,7 @@ export default class Data {
 
   async deleteCourse(id, username, password) {
 
-  const response = await this.api(`http://localhost:5000/api/courses/${id}`, 'DELETE', null, false,{ username, password });
-
+  const response = await this.api(`/courses/${id}`, 'DELETE', null,  true,{ username, password });
     if (response.status === 204) {
       return [];
     } else if (response.status === 400) {
@@ -87,6 +86,22 @@ export default class Data {
     const response = await this.api('/courses', 'POST', course, true, { username, password });
 
     if (response.status === 201) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      });
+    }
+    else {
+      throw new Error();
+    }
+  }
+
+  async updateCourse(course, id, username, password) {
+    const response = await this.api(`/courses/${id}`, 'PUT', course, true, { username, password });
+
+    if (response.status === 204) {
       return [];
     }
     else if (response.status === 400) {

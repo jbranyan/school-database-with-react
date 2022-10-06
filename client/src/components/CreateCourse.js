@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 
 
-function CreateCourse({context}){
+function CreateCourse({ context }){
     const [title, setCourseTitle] = useState('');
     const [description, setCourseDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
