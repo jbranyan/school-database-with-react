@@ -20,7 +20,7 @@ import PrivateRoute from './components/PrivateRoute';
 const HeaderWithContext = withContext(Header);
 const CoursesWithContext = withContext(Courses);
 const CreateCourseWithContext = withContext(CreateCourse);
-const UpdateCourseWithContext = withContext(UpdateCourse); 
+const UpdateCourseWithContext = withContext(UpdateCourse);
 const CourseDetailWithContext = withContext(CourseDetail);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignUpWithContext = withContext(UserSignUp);

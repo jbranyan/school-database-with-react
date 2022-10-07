@@ -32,7 +32,7 @@ function CourseDetail({context}){
                 estimatedTime: data.estimatedTime,
                 materialsNeeded: data.materialsNeeded,
                 firstName: data.User.firstName,
-                lastName: data.User.LastName
+                lastName: data.User.lastName
             })
         )
         .catch(err => console.log(err));
@@ -74,6 +74,7 @@ function CourseDetail({context}){
                     <div>
                         <h3 className="course--detail--title">Course</h3>
                         <h4 className="course--name">{course.title} </h4>
+                        <p>By {course.firstName} {course.lastName}</p>
 
                         <ReactMarkdown children={course.description}/>
                     </div>

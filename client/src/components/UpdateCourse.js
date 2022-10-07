@@ -11,8 +11,6 @@ import Form from './Form';
 function UpdateCourse({context}){
 
     const history = useHistory();
-    const username = context.authenticatedUser.emailAddress;
-    const password = context.authenticatedUser.password;
 
     const [course, setCourse] = useState({
         title: " ",
@@ -42,7 +40,7 @@ function UpdateCourse({context}){
                 user: {
                     id: data.User.id,
                     firstName: data.User.firstName,
-                    lastName: data.User.LastName,
+                    lastName: data.User.lastName,
                     emailAddress: data.User.emailAddress
                 }
             })
@@ -56,11 +54,15 @@ function UpdateCourse({context}){
 
     const submit = () => {
 
+        const username = context.authenticatedUser.emailAddress;
+        const password = context.authenticatedUser.password;
+
         const updatedCourse = {
             title,
             description,
             estimatedTime,
-            materialsNeeded
+            materialsNeeded,
+            userId: course.user.id
         }
 
         context.data.updateCourse(updatedCourse, id, username, password)
@@ -117,7 +119,7 @@ function UpdateCourse({context}){
                                         value={title}
                                     />
                                 </label>
-                                <p>By {course.firstName} {course.lastName}</p>
+                                <p>By {course.user?.firstName} {course.user?.lastName}</p>
 
                                 <label htmlFor="courseDescription">
                                     Course Description
