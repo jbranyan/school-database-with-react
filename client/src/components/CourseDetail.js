@@ -62,9 +62,15 @@ function CourseDetail({context}){
         <React.Fragment>
             <div className="actions--bar">
                 <div className="wrap">
+                { context.authenticatedUser && context.authenticatedUser.id === course.course.userId ?
+                <>
                     <NavLink exact to={`/courses/${course.course.id}/update`} className='button'>Update Course</NavLink>
                     <NavLink exact to={`/courses/${course.course.id}/delete`} className='button' onClick={deleteCourse}>Delete Course</NavLink>
                     <NavLink exact to='/' className="button button-secondary">Return to List</NavLink>
+                </> :
+
+                    <NavLink exact to='/' className="button button-secondary">Return to List</NavLink>
+                }
                 </div>
             </div>
         <div className="wrap">
