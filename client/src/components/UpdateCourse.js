@@ -75,7 +75,6 @@ function UpdateCourse({context}){
         })
         .catch( error => {
                 console.log(error);
-                history.push('/error');
         })
 
     }
@@ -101,19 +100,19 @@ function UpdateCourse({context}){
             <h2>Update Course</h2>
 
             <Form
-                cancel={cancel}
                 errors={errors}
+                cancel={cancel}
                 submit={submit}
                 submitButtonText="Update Course"
                 elements={() => (
                     <React.Fragment>
                         <div className="main--flex">
                             <div>
-                                <label htmlFor="courseTitle">
+                                <label htmlFor="title">
                                     Course Title
-                                    <input 
-                                        id="courseTitle"
-                                        name="courseTitle"
+                                    <input
+                                        id="title"
+                                        name="title"
                                         type="text"
                                         onChange={handleChange}
                                         value={title}
@@ -121,18 +120,18 @@ function UpdateCourse({context}){
                                 </label>
                                 <p>By {course.user?.firstName} {course.user?.lastName}</p>
 
-                                <label htmlFor="courseDescription">
+                                <label htmlFor="description">
                                     Course Description
                                     <textarea
-                                        id="courseDescription"
-                                        name="courseDescription"
+                                        id="description"
+                                        name="description"
                                         type="text"
                                         onChange={handleChange}
                                         value={description}
                                     />
                                 </label>
                             </div>
-                            
+
                             <div>
                                 <label htmlFor="estimatedTime">
                                     Estimated Time
