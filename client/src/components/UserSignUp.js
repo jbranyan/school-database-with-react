@@ -38,7 +38,6 @@ const handleSubmit = async (e) => {
         })
         .catch( error => {
                 console.log(error);
-                history.push('/error');
         })
 
 
@@ -53,7 +52,16 @@ const cancelLogin = (event)  => {
     <React.Fragment>
         <div className="form--centered">
             <h2>Sign Up</h2>
-            
+
+            { errorMessage.length > 0 &&
+                <div className="validation--errors">
+                    <h3>Validation Errors</h3>
+                    <ul>
+                        {Array.from(errorMessage).map((error, i) => <li key={i}>{error}</li>)}
+                    </ul>
+                </div>
+            }
+
             <form onSubmit={handleSubmit}>
                 <label htmlFor="firstName">First Name</label>
                 <input 
@@ -73,14 +81,14 @@ const cancelLogin = (event)  => {
                 />
                 <label htmlFor="emailAddress">Email Address</label>
                 <input 
-                    id="emailAddress" 
-                    name="emailAddress" 
-                    type="email" 
+                    id="emailAddress"
+                    name="emailAddress"
+                    type="email"
                     onChange={(e) => setEmailAddress(e.target.value)}
                     value={emailAddress}
                 />
                 <label htmlFor="password">Password</label>
-                <input 
+                <input
                     id="password"
                     name="password"
                     type="password"
