@@ -23,6 +23,7 @@ function CourseDetail({context}){
 
 
       useEffect(() => {
+        //Fetch the data for the related course id
         context.data.getCourse(id)
         .then(data =>
             setCourseDetail({
@@ -38,6 +39,7 @@ function CourseDetail({context}){
         .catch(err => console.log(err));
         }, [id]);
 
+        //Handles deleting a course for an authenticated user
         const deleteCourse = async (e) => {
             e.preventDefault();
             const username = context.authenticatedUser.emailAddress;
@@ -45,8 +47,6 @@ function CourseDetail({context}){
 
             context.data.deleteCourse(id, username, password)
                 .then(error => {
-                    console.log('error ' + error);
-                    console.log('error length ' + error.length);
                     if(error.length){
                         console.log(error);
                     } else {

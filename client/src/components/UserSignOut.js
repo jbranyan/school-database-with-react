@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 const UserSignOut = ({context}) => {
-
+  //Sign out the user
   useEffect(() => {
     context.actions.signOut();
     // eslint-disable-next-line react-hooks/exhaustive-deps

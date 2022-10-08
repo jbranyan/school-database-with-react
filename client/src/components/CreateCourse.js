@@ -13,12 +13,13 @@ function CreateCourse({ context }){
     const userId = context.authenticatedUser.id;
     const history = useHistory();
 
+    //If a user selects the cancel button, route them back to the course list
     function cancel(e) {
         history.push('/');
     }
 
     const submit = () => {
-
+        //Set the authenticated user name and password
         const username = context.authenticatedUser.emailAddress;
         const password = context.authenticatedUser.password;
 
@@ -29,7 +30,8 @@ function CreateCourse({ context }){
             materialsNeeded,
             userId
         }
-
+        //Attempt to create the course for an authenticated user
+        //If errors, capture the error messages to display
         context.data.createCourse(newCourse, username, password)
         .then(errors => {
             if(errors.length){
@@ -43,6 +45,7 @@ function CreateCourse({ context }){
         })
     }
 
+    //Capture user changes made on the form
     function handleChange(e){
         const { name, value } = e.target;
         setCourse(prevState => ({

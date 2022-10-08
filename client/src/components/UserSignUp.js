@@ -11,7 +11,7 @@ const [password, setPassword] = useState('');
 const [errorMessage, setErrorMessages] = useState([]);
 const history = useHistory();
 
-
+//Take the information entered by the user and attempt to create a new account
 const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,23 +64,23 @@ const cancelLogin = (event)  => {
 
             <form onSubmit={handleSubmit}>
                 <label htmlFor="firstName">First Name</label>
-                <input 
-                    id="firstName" 
-                    name="firstName" 
-                    type="text" 
+                <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
                     onChange={(e) => setFirstName(e.target.value)}
                     value={firstName}
                 />
                 <label htmlFor="lastName">Last Name</label>
-                <input 
-                    id="lastName" 
-                    name="lastName" 
-                    type="text" 
+                <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
                     onChange={(e) => setLastName(e.target.value)}
                     value={lastName}
                 />
                 <label htmlFor="emailAddress">Email Address</label>
-                <input 
+                <input
                     id="emailAddress"
                     name="emailAddress"
                     type="email"
