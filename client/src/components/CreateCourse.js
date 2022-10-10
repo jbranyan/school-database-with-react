@@ -18,6 +18,7 @@ function CreateCourse({ context }){
         history.push('/');
     }
 
+    //Handles the submit functionality when a user selects the submit button
     const submit = () => {
         //Set the authenticated user name and password
         const username = context.authenticatedUser.emailAddress;

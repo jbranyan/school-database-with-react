@@ -21,7 +21,8 @@ const handleSubmit = async (e) => {
         emailAddress,
         password
     }
-
+    //Attempts to create the new user and redirects to the course details page if successful
+    //If not successful, an error message will display on the form
     context.data.createUser(user)
         .then(errors => {
             if(errors.length){
@@ -43,6 +44,7 @@ const handleSubmit = async (e) => {
 
 }
 
+//When a user cancels login, it redirects to the course detail page
 const cancelLogin = (event)  => {
     event.preventDefault();
     history.push('/');

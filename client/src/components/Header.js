@@ -1,3 +1,5 @@
+/* Builds the header that renders on each page of the site */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
